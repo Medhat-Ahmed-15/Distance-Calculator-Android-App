@@ -7,7 +7,4 @@ public class Constants
     static  final String ACTION_START_NOTIFICATION_SERVICE="startNotificationService";
     static  final String ACTION_STOP_NOTIFICATION_SERVICE="stopNotificationService";
 
-
-
-
 }

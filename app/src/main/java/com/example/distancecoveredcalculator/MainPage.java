@@ -45,6 +45,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainPage extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
@@ -95,6 +100,10 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
     double totalDistance;
     double distanceBetween;
 
+    String security;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
 
 
 
@@ -105,6 +114,27 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
+         database = FirebaseDatabase.getInstance();
+         myRef = database.getReference("Security");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                security = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read
+                Toast.makeText(MainPage.this, "Failed to read value", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
 
         getLocationPermission();
@@ -146,6 +176,10 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
             public void onClick(View v) {
 
 
+
+
+
+                if (security.equals("allow")) {
 
                 if (CheckNetworkConnection()) {
 
@@ -191,6 +225,12 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
 
                 } else {
                     Toast.makeText(MainPage.this, "No Internet Connection Please Connect to a wifi or mobile network❌❌❌", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+                else {
+                    Toast.makeText(MainPage.this, "Sorry This application was blocked by the admin❗❗❗", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -690,4 +730,23 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
     }
 
 
+    @Override
+    protected void onPause() {
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                security = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read
+                Toast.makeText(MainPage.this, "Failed to read value", Toast.LENGTH_LONG).show();
+            }
+        });
+        super.onPause();
+    }
 }

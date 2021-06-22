@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1011326423345",
+    "project_id": "distance-calculator-c1a6c",
+    "storage_bucket": "distance-calculator-c1a6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011326423345:android:8a0a332b6c89e0f9c5a010",
+        "android_client_info": {
+          "package_name": "com.example.distancecoveredcalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011326423345-aq5iv3uj3f4oah2nofbcnjo2ng3bmgag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.distancecoveredcalculator",
+            "certificate_hash": "d0af874b37e540b3acce4b1959d5fc3c78033bcd"
+          }
+        },
+        {
+          "client_id": "1011326423345-9r07l2bgp8cvifs9gbs3jmr41m2eehq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI2oMTAogHdW2Pnz9T9yiwyhkuNXkgQTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011326423345-9r07l2bgp8cvifs9gbs3jmr41m2eehq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
