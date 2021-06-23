@@ -175,63 +175,64 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onClick(View v) {
 
+                try {
+                    if (security.equals("allow")) {
+
+                        if (CheckNetworkConnection()) {
+
+                            if (CheckLocationServices()) {
+                                if (input_fees.getText().toString().equals("")) {
+
+                                    Toast.makeText(MainPage.this, "Please Enter an Amount Of Fees 💲💲💲", Toast.LENGTH_LONG).show();
+
+                                } else {
 
 
+                                    if (mLocationPermissionsGranted) {
+
+                                        startButtonFlag = 1;
 
 
-                if (security.equals("allow")) {
-
-                if (CheckNetworkConnection()) {
-
-                    if (CheckLocationServices()) {
-                        if (input_fees.getText().toString().equals("")) {
-
-                            Toast.makeText(MainPage.this, "Please Enter an Amount Of Fees 💲💲💲", Toast.LENGTH_LONG).show();
-
-                        } else {
+                                        getDeviceStartLocation();
+                                        getCurrentLocation();
 
 
-                            if (mLocationPermissionsGranted) {
+                                        if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                                                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseContext(),
+                                                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                                startButtonFlag = 1;
+                                            return;
+                                        }
+                                        mMap.setMyLocationEnabled(true);
+                                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
+                                    } else {
+                                        Toast.makeText(MainPage.this, "❌Location Not Granted❌", Toast.LENGTH_LONG).show();
 
-                                getDeviceStartLocation();
-                                getCurrentLocation();
+                                    }
 
-
-                                if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseContext(),
-                                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                                    return;
                                 }
-                                mMap.setMyLocationEnabled(true);
-                                mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
                             } else {
-                                Toast.makeText(MainPage.this, "❌Location Not Granted❌", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainPage.this, "Location Services must be enabled first🛰", Toast.LENGTH_LONG).show();
+                                buildAlertMessageNoGps();
+
 
                             }
 
-                        }
-                    } else {
-                        Toast.makeText(MainPage.this, "Location Services must be enabled first🛰", Toast.LENGTH_LONG).show();
-                        buildAlertMessageNoGps();
 
+                        } else {
+                            Toast.makeText(MainPage.this, "No Internet Connection Please Connect to a wifi or mobile network❌❌❌", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    } else {
+                        Toast.makeText(MainPage.this, "Sorry This application was blocked by the admin❗❗❗", Toast.LENGTH_LONG).show();
 
                     }
-
-
-                } else {
-                    Toast.makeText(MainPage.this, "No Internet Connection Please Connect to a wifi or mobile network❌❌❌", Toast.LENGTH_LONG).show();
-
                 }
-
-            }
-                else {
-                    Toast.makeText(MainPage.this, "Sorry This application was blocked by the admin❗❗❗", Toast.LENGTH_LONG).show();
-
+                catch (NullPointerException e)
+                {
+                    Toast.makeText(MainPage.this, "connection unstable please try again", Toast.LENGTH_LONG).show();
                 }
             }
         });
