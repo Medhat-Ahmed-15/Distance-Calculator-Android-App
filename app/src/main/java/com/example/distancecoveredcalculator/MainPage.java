@@ -176,9 +176,12 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
             public void onClick(View v) {
 
                 try {
+
+                    if (CheckNetworkConnection()) {
+
                     if (security.equals("allow")) {
 
-                        if (CheckNetworkConnection()) {
+
 
                             if (CheckLocationServices()) {
                                 if (input_fees.getText().toString().equals("")) {
@@ -220,14 +223,14 @@ public class MainPage extends FragmentActivity implements OnMapReadyCallback,
                             }
 
 
-                        } else {
-                            Toast.makeText(MainPage.this, "No Internet Connection Please Connect to a wifi or mobile network❌❌❌", Toast.LENGTH_LONG).show();
-
+                        } else
+                            {
+                        Toast.makeText(MainPage.this, "Sorry This application was blocked by the admin❗❗❗", Toast.LENGTH_LONG).show();
                         }
 
-                    } else {
-                        Toast.makeText(MainPage.this, "Sorry This application was blocked by the admin❗❗❗", Toast.LENGTH_LONG).show();
-
+                    } else
+                        {
+                        Toast.makeText(MainPage.this, "No Internet Connection Please Connect to a wifi or mobile network❌❌❌", Toast.LENGTH_LONG).show();
                     }
                 }
                 catch (NullPointerException e)
